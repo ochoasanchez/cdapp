@@ -1,0 +1,28 @@
+---
+const links = [
+  // { text: "Valencia 29-08-25", url: "https://api.whatsapp.com/send?phone=584145805584&text=Hola!%20Quisiera%20m%C3%A1s%20info%20sobre%20las%20entradas%20de%20Club%20Dom%C3%A9stico", color: "accent" },
+  { text: "Entradas Valencia 29/08", url: "/tickets/", color: "accent" },
+  {
+    text: "Merch",
+    url: "https://api.whatsapp.com/send?phone=584145805584&text=Hola%2C%20quisiera%20m%C3%A1s%20info%20sobre%20la%20merch%20de%20Club%C2%A0Dom%C3%A9stico",
+    color: "primary",
+  },
+  { text: "Próximos Eventos", url: "/calendar", color: "primary" },
+  { text: "Contáctanos", url: "mailto:clubdomestico@gmail.com", color: "primary" },
+];
+---
+
+<div class="flex flex-col gap-4 w-full mx-auto">
+  {
+    links.map((link) => (
+      <div class={`border-2 lg:border-3 rounded-lg transition-all bg-black ${link.color === 'primary' ? 'border-pink-500' : 'border-emerald-500'} ${link.color === 'primary' ? 'hover:bg-pink-500' : 'hover:bg-emerald-500'}`}>
+        <a
+          href={link.url}
+          class={`flex items-center justify-center w-full py-4 px-6 text-center uppercase font-bold text-lg hover:text-black ${link.color === 'primary' ? 'text-pink-500' : 'text-emerald-500'}`}
+        >
+          {link.text}
+        </a>
+      </div>
+    ))
+  }
+</div>

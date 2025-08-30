@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+}
+
+body {
+  min-height: -webkit-fill-available;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+a,
+p,
+li,
+span,
+.glitch {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.title {
+  font-weight: 900;
+  font-style: italic;
+}
+
+.subtitle {
+  font-weight: 500;
+}
+
+.bg-chica {
+  background-image: url("../../img/chica-crop.png");
+  background-attachment: fixed !important;
+  background-repeat: no-repeat;
+}
+
+/* TEXT GLITCH */
+.glitch::before,
+.glitch::after {
+  white-space: pre;
+  width: 100%;
+}
+
+.glitch {
+  display: inline-block;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Before pseudo-element: green stronger offset */
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 2px;
+  /* text-shadow: 4px 0 #05d003; */
+  text-shadow: 4px 0 #818cf8;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+  animation: noise-anim-2 1s infinite linear alternate-reverse;
+}
+
+/* After pseudo-element: pink/purple stronger offset */
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: -2px;
+  /* text-shadow: -4px 0 #ab77a9; */
+  text-shadow: -2px 0 #fbbf24;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+  animation: noise-anim 1s infinite linear alternate-reverse;
+}
+
+/* Keyframes with wilder clipping */
+@keyframes noise-anim {
+  0% {
+    clip: rect(10px, 9999px, 50px, 0);
+  }
+  10% {
+    clip: rect(30px, 9999px, 80px, 0);
+  }
+  20% {
+    clip: rect(60px, 9999px, 20px, 0);
+  }
+  30% {
+    clip: rect(25px, 9999px, 90px, 0);
+  }
+  40% {
+    clip: rect(50px, 9999px, 10px, 0);
+  }
+  50% {
+    clip: rect(75px, 9999px, 60px, 0);
+  }
+  60% {
+    clip: rect(15px, 9999px, 70px, 0);
+  }
+  70% {
+    clip: rect(45px, 9999px, 30px, 0);
+  }
+  80% {
+    clip: rect(20px, 9999px, 85px, 0);
+  }
+  90% {
+    clip: rect(65px, 9999px, 25px, 0);
+  }
+  100% {
+    clip: rect(35px, 9999px, 95px, 0);
+  }
+}
+
+@keyframes noise-anim-2 {
+  0% {
+    clip: rect(60px, 9999px, 30px, 0);
+  }
+  10% {
+    clip: rect(10px, 9999px, 70px, 0);
+  }
+  20% {
+    clip: rect(40px, 9999px, 20px, 0);
+  }
+  30% {
+    clip: rect(80px, 9999px, 50px, 0);
+  }
+  40% {
+    clip: rect(20px, 9999px, 90px, 0);
+  }
+  50% {
+    clip: rect(70px, 9999px, 10px, 0);
+  }
+  60% {
+    clip: rect(30px, 9999px, 80px, 0);
+  }
+  70% {
+    clip: rect(90px, 9999px, 40px, 0);
+  }
+  80% {
+    clip: rect(50px, 9999px, 15px, 0);
+  }
+  90% {
+    clip: rect(25px, 9999px, 75px, 0);
+  }
+  100% {
+    clip: rect(85px, 9999px, 35px, 0);
+  }
+}
+
+/* GRAIN BG */
+.grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5; /* Put it above bg-chica, below content if needed */
+}
+
+main {
+  z-index: 10; /* Put it above grain, below bg-chica if needed */
+}
+
+.grain::before {
+  content: "";
+  position: fixed;
+  top: -10rem;
+  left: -10rem;
+  width: calc(100% + 20rem);
+  height: calc(100% + 20rem);
+  background-image: url("../../public/img/noise_3.png");
+  pointer-events: none;
+  animation: grain-noise 1s steps(1) infinite;
+}
+
+@keyframes grain-noise {
+  0% {
+    transform: translate3d(0, 9rem, 0);
+  }
+  10% {
+    transform: translate3d(-1rem, -4rem, 0);
+  }
+  20% {
+    transform: translate3d(-8rem, 2rem, 0);
+  }
+  30% {
+    transform: translate3d(9rem, -9rem, 0);
+  }
+  40% {
+    transform: translate3d(-2rem, 7rem, 0);
+  }
+  50% {
+    transform: translate3d(-9rem, -4rem, 0);
+  }
+  60% {
+    transform: translate3d(2rem, 6rem, 0);
+  }
+  70% {
+    transform: translate3d(7rem, -8rem, 0);
+  }
+  80% {
+    transform: translate3d(-9rem, 1rem, 0);
+  }
+  90% {
+    transform: translate3d(6rem, -5rem, 0);
+  }
+  100% {
+    transform: translate3d(-7rem, 0, 0);
+  }
+}
+
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: currentColor;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+.icon-bank {
+  -webkit-mask-image: url("../../public/icons/bank.svg");
+  mask-image: url("../../public/icons/bank.svg");
+}
+
+.icon-phone {
+  -webkit-mask-image: url("../../public/icons/phone.svg");
+  mask-image: url("../../public/icons/phone.svg");
+}
+
+.icon-id {
+  -webkit-mask-image: url("../../public/icons/id.svg");
+  mask-image: url("../../public/icons/id.svg");
+}

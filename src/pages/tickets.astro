@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import headerImage from "../../public/img/flyer_header.jpg";
+// import CopyButton from "../components/CopyButton.astro";
+---
+
+<BaseLayout subText="Información sobre las entradas 🎟️">
+  <div
+    class="bg-black rounded-lg text-white md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto shadow-zinc-900 shadow-md"
+  >
+    <div class="w-full bg-black overflow-hidden rounded-t-lg">
+      <Image
+        src={headerImage}
+        alt={`Flyer de Club Doméstico 3`}
+        class="w-full sm:object-cover rounded-tl-lg rounded-tr-lg"
+        width="600"
+        height="600"
+        loading="lazy"
+      />
+    </div>
+    <div class="p-4 text-justify text-lg sm:text-xl">
+      <div id="card-header" class="flex justify-between items-center">
+        <div class="flex flex-col">
+          <h2 class="font-bold text-lg lg:text-2xl uppercase">
+            Sala Martín Gala
+          </h2>
+          <h3 class="text-lg lg:text-xl text-pink-300">Club Hípico de Carabobo</h3>
+        </div>
+
+        <div class="flex flex-col text-right gap-0">
+          <span
+            class="font-bold rounded-full text-shadow-md text-xl lg:text-2xl tracking-widest"
+          >
+            29
+          </span>
+
+          <span
+            class="text-emerald-300 rounded-full text-shadow-md text-lg lg:text-xl"
+          >
+            AGO
+          </span>
+        </div>
+      </div>
+      <p class="mt-4">
+        Para adquirir tus entradas de este <span class="font-bold"
+          >viernes 29 de agosto</span
+        >, solo debes enviarnos la siguiente información:
+        <ul class="py-4 px-6 list-disc">
+          <li>Nombre y apellido</li>
+          <li>Número de cédula</li>
+          <li>Captura del pago (si es el caso)</li>
+        </ul>
+      </p>
+    <div id="card-body">
+      <p class="w-full">
+        <span class="font-bold text-2xl">Precio: $10 o Bs. 2.200</span>
+      </p>
+      <div class="my-4 pt-4 text-pink-300 border-t-2 border-white">
+        <p class="font-bold mb-2">Datos del pago móvil:</p>
+        <div class="flex gap-x-2 items-center">
+          <span class="select-none tracking-wide">📞</span> 
+          <p>0414<span class="select-none">-</span>5805584</p>
+        </div>
+        <div class="flex gap-x-2 items-center">
+          <span class="select-none">🏦</span>
+          <p>Banco Nacional de Crédito</p>
+        </div>
+        <div class="flex gap-x-2 items-center">
+          <span class="select-none tracking-wide -mt-1">🪪</span> 
+          <p>17<span class="select-none">.</span>980<span class="select-none">.</span>775</p>
+        </div>
+      </div>
+      <p>
+        Una vez realices el pago, tómale una captura y escríbenos por WhatsApp
+        al <span class="font-bold">0414-5805584</span> o haz clic en el botón de
+        abajo.
+      </p>
+      <a id="card-button"
+        href="https://api.whatsapp.com/send?phone=584145805584&text=Hola!%20Ac%C3%A1%20te%20env%C3%ADo%20mi%20comprobante%20de%20pago%20para%20la%20fiesta%20de%20Club%20Dom%C3%A9stico%0A%0ANombre:%0AC%C3%A9dula:"
+        class="block mt-4 py-2 px-2 text-center uppercase font-bold text-lg border-2 lg:border-3 bg-emerald-500 border-emerald-500 text-black rounded-lg hover:bg-black hover:text-emerald-500 transition-all mx-auto"
+      >
+        Enviar comprobante <br /> por WhatsApp
+      </a>
+
+    </div>
+    </div>
+    <!-- <div class="px-4 mb-4"> -->
+    <!-- </div> -->
+  </div>
+</BaseLayout>

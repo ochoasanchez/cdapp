@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+
+const { date, venue, city, price, url, image = "#" } = Astro.props;
+---
+
+<a
+  href={url}
+  class="block bg-black shadow-zinc-900 shadow-md rounded-lg text-white hover:bg-opacity-90 transition-all overflow-hidden hover:border-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-700 w-full"
+  aria-label={`Event: ${venue} in ${city} on ${date}`}
+>
+  <div class="w-full bg-gray-800 overflow-hidden">
+    <Image
+      src={image}
+      alt={`Flyer del evento en ${venue}`}
+      class="w-full h-full object-cover transition-transform hover:scale-105"
+      width="600"
+      height="600"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="p-4">
+    <div class="flex justify-between items-center">
+      <h3 class="font-bold text-lg uppercase">{date}</h3>
+      {
+        price && (
+          <span class="bg-pink-600 px-3 py-1 text-md font-bold rounded-full text-shadow-md">
+            {price}
+          </span>
+        )
+      }
+    </div>
+    <div class="mt-2">
+      <p class="font-medium">{venue}</p>
+      <p class="text-pink-300">{city}</p>
+    </div>
+  </div>
+</a>

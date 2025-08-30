@@ -1,0 +1,30 @@
+---
+import Head from '../components/Head.astro';
+import GrainOverlay from '../components/GrainOverlay.astro';
+import Header from '../components/Header.astro';
+import ButtonStart from '../components/ButtonStart.astro';
+
+interface Props {
+  subText?: string;
+  showButtonStart?: boolean; // New optional boolean prop
+}
+
+const { subText = "Electro y afecto en formato DIY 👽", showButtonStart = true } = Astro.props;
+---
+<html lang="en">
+  <Head />
+  <body
+    class="flex flex-col items-center md:justify-center min-h-dvh w-full bg-zinc-900"
+  >
+    <div class="fixed inset-0 z-[-2] bg-zinc-900 "></div>
+    <GrainOverlay />
+
+    <main class="flex flex-col w-full gap-6 relative z-10 px-4 py-6">
+      <Header subText={subText} />
+
+      <slot />
+
+      {showButtonStart && <ButtonStart />}
+    </main>
+  </body>
+</html>

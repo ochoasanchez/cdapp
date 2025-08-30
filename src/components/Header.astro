@@ -1,0 +1,16 @@
+---
+import Avatar from "./Avatar.astro";
+import TitleBlock from "./TitleBlock.astro";
+
+interface Props {
+  mainText?: string;
+  subText?: string;
+}
+
+const { mainText, subText } = Astro.props;
+---
+
+<div class="flex flex-col gap-4">
+  <Avatar />
+  <TitleBlock mainText={mainText} subText={subText} />
+</div>

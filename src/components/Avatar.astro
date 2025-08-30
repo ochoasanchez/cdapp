@@ -1,0 +1,15 @@
+---
+// Props for dynamic avatar (or hardcode)
+const { src = "../img/logo_transparent.png", alt = "Club Domestico Logo" } =
+  Astro.props;
+---
+
+<div class="flex justify-center ">
+  <a href="/">
+    <img
+      src={src}
+      alt={alt}
+      class="rounded-full h-36 w-36 lg:h-42 lg:w-42 border-3 border-white bg-white shadow-zinc-900 shadow-md"
+    />
+  </a>
+</div>
