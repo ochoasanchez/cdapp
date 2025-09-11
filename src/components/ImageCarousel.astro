@@ -1,0 +1,127 @@
+---
+interface Props {
+  src: any;
+  alt: string;
+  speed?: number;     // seconds for a full scroll
+  maxHeight?: string; // CSS height, e.g. "50vh"
+  pauseOnHover?: boolean;
+}
+
+const { src, alt, speed = 20, maxHeight = "50vh", pauseOnHover = true } = Astro.props;
+const imageSrc =
+  typeof src === "string" ? src : (src && (src.src ?? src.default ?? src));
+---
+    <div class="carousel-container shadow-md" data-pause={pauseOnHover ? "true" : "false"} style={`--duration:${speed}s; --max-h:${maxHeight}; lg:mx-auto`}>
+      <div class="carousel-track">
+        <img src={imageSrc} alt={alt} class="carousel-img" />
+        <img src={imageSrc} alt={alt} class="carousel-img" />
+      </div>
+    </div>
+
+
+<script>
+/* @ts-nocheck
+   Defensive client code: finds all .carousel-track elements and sets --shift per-track.
+*/
+(function () {
+  if (typeof document === "undefined") return;
+
+  function setupTrack(track: any) {
+    if (!track) return;
+    const firstImg = track.querySelector(".carousel-img");
+    if (!firstImg) return;
+    const container = track.parentElement;
+    if (!container) return;
+
+    function doSetup() {
+      // measure rendered widths
+      const imgRect = firstImg.getBoundingClientRect();
+      const imgWidth = Math.round(imgRect.width || 0);
+      const containerWidth = Math.round(container.getBoundingClientRect().width || 0);
+
+      if (!imgWidth) {
+        // fallback: if measurement failed, disable animation
+        track.style.animation = "none";
+        return;
+      }
+
+      track.style.setProperty("--shift", imgWidth + "px");
+
+      if (imgWidth <= containerWidth) {
+        // fits — no scrolling needed
+        track.style.animation = "none";
+      } else {
+        // restart animation to pick up new --shift
+        track.style.animation = "none";
+        void track.offsetWidth; // force reflow
+        track.style.animation = `scroll-left var(--duration) linear infinite`;
+      }
+    }
+
+    // wait for image load if needed
+    if (!firstImg.complete) {
+      firstImg.addEventListener("load", doSetup, { once: true });
+    } else {
+      doSetup();
+    }
+
+    // handle resize (debounced)
+    let t: any;
+    window.addEventListener("resize", () => {
+      clearTimeout(t);
+      t = setTimeout(doSetup, 120);
+    });
+  }
+
+  function init() {
+    const tracks = Array.from(document.querySelectorAll(".carousel-track"));
+    tracks.forEach((t) => setupTrack(t));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<style>
+  .carousel-container {
+    position: relative;
+    width: 100vh;
+    overflow: hidden;
+    margin-left:-16px;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+    will-change: transform;
+    /* fallback animation — JS will restart it once --shift is set */
+    animation: scroll-left var(--duration, 9s) linear infinite;
+  }
+
+  .carousel-container[data-pause="true"]:hover .carousel-track {
+    animation-play-state: paused;
+  }
+
+  .carousel-img {
+    flex-shrink: 0;
+    display: block;
+    width: auto !important;
+    max-width: none !important;
+    height: auto;
+    max-height: var(--max-h, 50vh);
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+  }
+
+  /* translate by exactly one image width (set in px via --shift) */
+  @keyframes scroll-left {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(-1 * var(--shift, 100%))); }
+  }
+</style>

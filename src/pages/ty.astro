@@ -6,10 +6,6 @@ import Links from "../components/Links.astro";
 import Socials from "../components/Socials.astro";
 import "../styles/global.css";
 
-// import { redirect } from 'astro:server';
-// redirect('/calendar');
-
-// window.location.replace("/calendar")
 ---
 
 <html lang="en">
@@ -25,16 +21,9 @@ import "../styles/global.css";
     <GrainOverlay />
 
     <main class="flex flex-col w-full md:w-6/12 xl:w-4/12 gap-6 relative z-10">
-      <Header />
-
-      <Socials />
-
-      <Links />
+      <Header mainText="Gracias por venir" subText="" />
     </main>
   </body>
 </html>
-<script>
-  window.location.replace("/event");
-</script>
 
 

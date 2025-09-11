@@ -58,8 +58,9 @@ span,
   position: absolute;
   top: 0;
   left: 2px;
+  text-shadow: 4px 0 #84cc16;
   /* text-shadow: 4px 0 #05d003; */
-  text-shadow: 4px 0 #818cf8;
+  /* text-shadow: 4px 0 #818cf8; */
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
   animation: noise-anim-2 1s infinite linear alternate-reverse;
@@ -71,8 +72,9 @@ span,
   position: absolute;
   top: 0;
   left: -2px;
+  text-shadow: -4px 0 #f472b6;
   /* text-shadow: -4px 0 #ab77a9; */
-  text-shadow: -2px 0 #fbbf24;
+  /* text-shadow: -2px 0 #fbbf24; */
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
   animation: noise-anim 1s infinite linear alternate-reverse;

@@ -1,22 +1,31 @@
 ---
 import EventCard from "../components/EventCard.astro";
 import "../styles/global.css";
-import cdImage from "../../public/img/cd_290825.jpg";
+import gdcdImage from "../../public/img/gd_cd.jpg";
+import gritoImage from "../../public/img/grito_2.jpg";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const events = [
   {
-    date: "29 agosto 2025",
-    venue: "Sala Martín Gala (Club Hípico)",
+    date: "27 septiembre 2025",
+    venue: "Escenario Bar",
     city: "Valencia, VE",
-    price:  "$10",
-    image: cdImage,
+    price:  "$7",
+    image: gdcdImage,
     url: "/tickets",
+  },
+  {
+    date: "31 octubre 2025",
+    venue: "TBA",
+    city: "Valencia, VE",
+    price: null,
+    image: gritoImage,
+    url: "https://www.instagram.com/reel/DOMVDlnErmj/",
   },
 ];
 ---
 
-<BaseLayout subText="Próximos eventos">
+<BaseLayout mainText="Calendario" subText="">
   <div class="flex flex-col lg:flex-row gap-4 w-full lg:w-4/12 mx-auto">
     {
       events.map((event) => (
