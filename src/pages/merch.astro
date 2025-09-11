@@ -8,15 +8,15 @@ import ButtonStart from "../components/ButtonStart.astro";
 ---
 
 <BaseLayout mainText="Merch" subText="" showButtonStart={false}>
-    <div
-    class="md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto"
-  >
+<div id="img-container"
+class="md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto shadow-black shadow-md/30"
+>
   <ImageCarousel
     src={merchImage}
     alt="A collage of various merchandise items"
   />
 </div>
-  <div id="buttons" class="flex flex-col gap-2 lg:mt-2 md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto">
+  <div id="buttons" class="flex flex-col gap-3 lg:mt-4 w-full md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto">
     <a id="card-button"
         href="https://api.whatsapp.com/send?phone=584145805584&text=Hola%2C%20quisiera%20m%C3%A1s%20info%20sobre%20la%20merch%20de%20Club%C2%A0Dom%C3%A9stico"
         class="block py-4 px-6 text-center uppercase font-bold text-lg border-2 lg:border-3 bg-emerald-500 border-black text-black rounded-lg hover:bg-black hover:text-emerald-500 transition-all w-full"
@@ -27,3 +27,14 @@ import ButtonStart from "../components/ButtonStart.astro";
 
   </div>
 </BaseLayout>
+
+<style>
+  #img-container {
+    /* margin-left:-16px; */
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-container {
+      /* margin-left:0px; */
+    }
+  }

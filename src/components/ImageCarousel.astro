@@ -2,7 +2,7 @@
 interface Props {
   src: any;
   alt: string;
-  speed?: number;     // seconds for a full scroll
+  speed?: number;      // seconds for a full scroll
   maxHeight?: string; // CSS height, e.g. "50vh"
   pauseOnHover?: boolean;
 }
@@ -11,7 +11,7 @@ const { src, alt, speed = 20, maxHeight = "50vh", pauseOnHover = true } = Astro.
 const imageSrc =
   typeof src === "string" ? src : (src && (src.src ?? src.default ?? src));
 ---
-    <div class="carousel-container shadow-md" data-pause={pauseOnHover ? "true" : "false"} style={`--duration:${speed}s; --max-h:${maxHeight}; lg:mx-auto`}>
+    <div class="carousel-container shadow-md" data-pause={pauseOnHover ? "true" : "false"} style={`--duration:${speed}s; --max-h:${maxHeight};`}>
       <div class="carousel-track">
         <img src={imageSrc} alt={alt} class="carousel-img" />
         <img src={imageSrc} alt={alt} class="carousel-img" />
@@ -21,7 +21,7 @@ const imageSrc =
 
 <script>
 /* @ts-nocheck
-   Defensive client code: finds all .carousel-track elements and sets --shift per-track.
+    Defensive client code: finds all .carousel-track elements and sets --shift per-track.
 */
 (function () {
   if (typeof document === "undefined") return;
@@ -92,6 +92,14 @@ const imageSrc =
     width: 100vh;
     overflow: hidden;
     margin-left:-16px;
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-container {
+      /* Add your new styles here for .carousel-container on large screens */
+      margin-left:0px;
+      width: auto;
+    }
   }
 
   .carousel-track {

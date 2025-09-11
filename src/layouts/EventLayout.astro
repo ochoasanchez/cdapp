@@ -1,7 +1,7 @@
 ---
 import Head from '../components/Head.astro';
 import GrainOverlay from '../components/GrainOverlay.astro';
-import Header from '../components/Header.astro';
+import HeaderEvent from '../components/HeaderEvent.astro';
 import ButtonStart from '../components/ButtonStart.astro';
 
 interface Props {
@@ -14,7 +14,6 @@ size?: 'block' | 'full-width'; // New optional prop for layout size
 const { mainText = "Club Doméstico", subText = "Electro y afecto en formato DIY 👽", showButtonStart = true, size = 'block' } = Astro.props;
 const mainClasses = size === 'full-width' ? 'flex flex-col w-full gap-4 relative z-10 py-6' : 'flex flex-col w-full gap-4 relative z-10 px-4 py-6';
 ---
-
 <html lang="en">
 <Head />
 <body
@@ -24,7 +23,7 @@ class="flex flex-col items-center md:justify-center min-h-dvh w-full bg-red-800"
 <GrainOverlay />
 
 <main class={mainClasses}>
-  <Header mainText={mainText} subText={subText} />
+  <HeaderEvent mainText={mainText} subText={subText} />
 
   <slot />
 

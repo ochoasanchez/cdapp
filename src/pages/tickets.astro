@@ -1,13 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import "../styles/global.css";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import EventLayout from "../layouts/EventLayout.astro";
 import headerImage from "../../public/img/flyer3.jpg";
+import ButtonStart from "../components/ButtonStart.astro";
 ---
 
-<BaseLayout mainText="Entradas" subText="Good Days vs. Club Doméstico">
+<EventLayout mainText="Entradas" subText="Good Days vs. Club Doméstico" showButtonStart={false}>
+  <div class="flex flex-col gap-4 md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto">
   <div
-    class="bg-black rounded-lg text-white md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto shadow-zinc-900 shadow-md"
+    class="bg-black rounded-lg text-white shadow-black shadow-md/30"
   >
     <div class="w-full bg-black overflow-hidden rounded-t-lg">
       <Image
@@ -87,4 +89,6 @@ import headerImage from "../../public/img/flyer3.jpg";
     </div>
     </div>
   </div>
-</BaseLayout>
+  
+  <ButtonStart />
+</EventLayout>
