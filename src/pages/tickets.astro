@@ -56,10 +56,26 @@ import ButtonStart from "../components/ButtonStart.astro";
         </ul>
       </p>
     <div id="card-body">
-      <p class="w-full">
-        <span class="font-bold text-2xl">Cover: $7 o Bs. 1.400</span>
-      </p>
-      <div class="my-4 pt-4 text-pink-300 border-t-2 border-white">
+    <table class="table-auto bg-zinc-900 w-full font-medium rounded-md sm:text-xl">
+      <caption class="caption-top font-medium text-lg lg:text-2xl uppercase mb-2">
+        Cover
+      </caption>
+      <tbody>
+        <tr>
+          <td class="text-center py-4 px-2 border border-black">Entrada General</td>
+          <td class="text-center py-4 px-2 border border-black">$7<span class="opacity-30 font-medium mx-2">/</span>Bs. 1.400</td>
+        </tr>
+        <tr>
+          <td class="text-center py-4 px-2 border border-black">Entrada Open Bar</td>
+          <td class="text-center py-4 px-2 border border-black">$10<span class="opacity-30 font-medium mx-2">/</span>Bs. 2.000</td>
+        </tr>
+      </tbody>
+    </table>
+      <!-- <p class="w-full mt-4">
+        <span class="font-bold text-xl">Cover: $7 o Bs. 1.400</span><br/>
+        <span class="font-bold text-xl">Cover con open bar: $7 o Bs. 1.400</span>
+      </p> -->
+      <div class="mt-6 pt-6 text-pink-300 border-t-2 border-white">
         <p class="font-bold mb-2">Datos del pago móvil:</p>
         <div class="flex gap-x-2 items-center">
           <span class="select-none tracking-wide">📞</span> 
@@ -74,7 +90,7 @@ import ButtonStart from "../components/ButtonStart.astro";
           <p>26<span class="select-none">.</span>337<span class="select-none">.</span>044</p>
         </div>
       </div>
-      <p>
+      <p class="mt-4">
         Una vez realices el pago, tómale una captura y escríbenos por WhatsApp
         al <span class="font-bold">0414-4096757</span> o haz clic en el botón de
         abajo.
