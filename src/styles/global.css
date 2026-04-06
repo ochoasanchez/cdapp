@@ -2,14 +2,15 @@
 
 html {
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   overscroll-behavior-y: contain;
 }
 
 body {
   min-height: -webkit-fill-available;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
+  perspective: 800px;
 }
 
 h1,
@@ -36,9 +37,19 @@ td,
 }
 
 .bg-chica {
-  background-image: url("../../img/chica-crop.png");
-  background-attachment: fixed !important;
+  background-image: url("/img/chica_web.png");
   background-repeat: no-repeat;
+  /* mobile: cover the whole bg */
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 1024px) {
+  .bg-chica {
+    /* constrain by height so top/bottom never crop; width scales automatically */
+    background-size: auto 88%;
+    background-position: right center;
+  }
 }
 
 /* TEXT GLITCH */

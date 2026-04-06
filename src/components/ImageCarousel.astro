@@ -11,8 +11,12 @@ const { src, alt, speed = 20, maxHeight = "50vh", pauseOnHover = true } = Astro.
 const imageSrc =
   typeof src === "string" ? src : (src && (src.src ?? src.default ?? src));
 ---
-    <div class="carousel-container shadow-md" data-pause={pauseOnHover ? "true" : "false"} style={`--duration:${speed}s; --max-h:${maxHeight};`}>
+    <div class="carousel-container shadow-md" style={`--duration:${speed}s; --max-h:${maxHeight};`}>
       <div class="carousel-track">
+        <img src={imageSrc} alt={alt} class="carousel-img" />
+        <img src={imageSrc} alt={alt} class="carousel-img" />
+        <img src={imageSrc} alt={alt} class="carousel-img" />
+        <img src={imageSrc} alt={alt} class="carousel-img" />
         <img src={imageSrc} alt={alt} class="carousel-img" />
         <img src={imageSrc} alt={alt} class="carousel-img" />
       </div>
@@ -47,15 +51,10 @@ const imageSrc =
 
       track.style.setProperty("--shift", imgWidth + "px");
 
-      if (imgWidth <= containerWidth) {
-        // fits — no scrolling needed
-        track.style.animation = "none";
-      } else {
-        // restart animation to pick up new --shift
-        track.style.animation = "none";
-        void track.offsetWidth; // force reflow
-        track.style.animation = `scroll-left var(--duration) linear infinite`;
-      }
+      // Always scroll — we have multiple copies for seamless infinite loop
+      track.style.animation = "none";
+      void track.offsetWidth; // force reflow to restart
+      track.style.animation = `scroll-left var(--duration) linear infinite`;
     }
 
     // wait for image load if needed
@@ -89,17 +88,8 @@ const imageSrc =
 <style>
   .carousel-container {
     position: relative;
-    width: 100vh;
+    width: 100%;
     overflow: hidden;
-    margin-left:-16px;
-  }
-
-  @media (min-width: 1024px) {
-    .carousel-container {
-      /* Add your new styles here for .carousel-container on large screens */
-      margin-left:0px;
-      width: auto;
-    }
   }
 
   .carousel-track {
@@ -111,20 +101,23 @@ const imageSrc =
     animation: scroll-left var(--duration, 9s) linear infinite;
   }
 
-  .carousel-container[data-pause="true"]:hover .carousel-track {
-    animation-play-state: paused;
-  }
-
   .carousel-img {
     flex-shrink: 0;
     display: block;
     width: auto !important;
     max-width: none !important;
     height: auto;
-    max-height: var(--max-h, 50vh);
+    /* 10% smaller on mobile: 45vh instead of 50vh */
+    max-height: calc(var(--max-h, 50vh) * 0.9);
     margin: 0;
     padding: 0;
     object-fit: contain;
+  }
+
+  @media (min-width: 768px) {
+    .carousel-img {
+      max-height: var(--max-h, 50vh);
+    }
   }
 
   /* translate by exactly one image width (set in px via --shift) */

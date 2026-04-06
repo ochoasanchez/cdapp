@@ -1,0 +1,89 @@
+---
+interface Props {
+  fullScreen?: boolean;
+}
+
+const { fullScreen = false } = Astro.props;
+---
+
+<div class={fullScreen 
+  ? "fixed inset-0 z-[-2] w-full h-full smpte-bg-container" 
+  : "relative w-full aspect-video rounded-xl overflow-hidden shadow-black shadow-md/50"}>
+
+  <section aria-label="SMPTE HD Color Bars" class="smpte-bars">
+
+    <!-- Row 1: Main 7 color bars at 75% saturation (67.5% of height) -->
+    <div class="smpte-row smpte-row-1">
+      <div class="smpte-bar" style="background:#C0C0C0"></div>
+      <div class="smpte-bar" style="background:#C0C000"></div>
+      <div class="smpte-bar" style="background:#00C0C0"></div>
+      <div class="smpte-bar" style="background:#00C000"></div>
+      <div class="smpte-bar" style="background:#C000C0"></div>
+      <div class="smpte-bar" style="background:#C00000"></div>
+      <div class="smpte-bar" style="background:#0000C0"></div>
+    </div>
+
+    <!-- Row 2: Reverse/complement row — 100% level signals (8.75%) -->
+    <div class="smpte-row smpte-row-2">
+      <div class="smpte-bar" style="background:#0000FF"></div>
+      <div class="smpte-bar" style="background:#000000"></div>
+      <div class="smpte-bar" style="background:#FF00FF"></div>
+      <div class="smpte-bar" style="background:#000000"></div>
+      <div class="smpte-bar" style="background:#00FFFF"></div>
+      <div class="smpte-bar" style="background:#000000"></div>
+      <div class="smpte-bar" style="background:#666666"></div>
+    </div>
+
+    <!-- Row 3: –I / White / +Q / Black calibration signals (8.75%) -->
+    <div class="smpte-row smpte-row-3">
+      <div class="smpte-bar" style="background:#00214C;flex:1"></div>
+      <div class="smpte-bar" style="background:#FFFFFF;flex:1"></div>
+      <div class="smpte-bar" style="background:#19005A;flex:1"></div>
+      <div class="smpte-bar" style="background:#000000;flex:4"></div>
+    </div>
+
+    <!-- Row 4: PLUGE — black level calibration bars (15%) -->
+    <div class="smpte-row smpte-row-4 relative">
+      <div class="smpte-bar" style="background:#060606;flex:2"></div>
+      <div class="smpte-bar" style="background:#000000;flex:2"></div>
+      <div class="smpte-bar" style="background:#111111;flex:2"></div>
+      <div class="smpte-bar" style="background:#000000;flex:14"></div>
+      <!-- Vuelve pronto label sits in the dark PLUGE row (only if not fullScreen) -->
+      {!fullScreen && (
+        <p class="absolute inset-0 flex items-center justify-end pr-4 font-mono text-xs tracking-widest uppercase text-white/40 pointer-events-none select-none">
+          vuelve pronto :)
+        </p>
+      )}
+    </div>
+
+  </section>
+
+  <!-- LOST SIGNAL overlay — centred on the whole card (only if not fullScreen) -->
+  {!fullScreen && (
+    <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+      <p class="font-mono text-2xl font-normale tracking-[0.18em] uppercase text-white bg-black px-5 py-1.5 rounded-sm animate-pulse">
+        LOST SIGNAL
+      </p>
+    </div>
+  )}
+
+</div>
+
+<style>
+  /* ── SMPTE bars fill the card ── */
+  .smpte-bars {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Rows proportioned per SMPTE RP 219 */
+  .smpte-row        { display: flex; flex: 1; }
+  .smpte-row-1      { flex: 675; }
+  .smpte-row-2      { flex: 87;  }
+  .smpte-row-3      { flex: 87;  }
+  .smpte-row-4      { flex: 151; }
+
+  .smpte-bar        { flex: 1; min-width: 0; }
+</style>

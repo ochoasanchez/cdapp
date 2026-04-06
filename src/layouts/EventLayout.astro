@@ -2,24 +2,24 @@
 import Head from '../components/Head.astro';
 import GrainOverlay from '../components/GrainOverlay.astro';
 import HeaderEvent from '../components/HeaderEvent.astro';
-import ButtonStart from '../components/ButtonStart.astro';
+import ButtonHome from '../components/ButtonHome.astro';
 
 interface Props {
 mainText?: string;
 subText?: string;
-showButtonStart?: boolean; // New optional boolean prop
+showButtonHome?: boolean; // New optional boolean prop
 size?: 'block' | 'full-width'; // New optional prop for layout size
 }
 
-const { mainText = "Club Doméstico", subText = "Electro y afecto en formato DIY 👽", showButtonStart = true, size = 'block' } = Astro.props;
+const { mainText = "Club Doméstico", subText = "Electro y afecto en formato DIY 👽", showButtonHome = true, size = 'block' } = Astro.props;
 const mainClasses = size === 'full-width' ? 'flex flex-col w-full gap-4 relative z-10 py-6' : 'flex flex-col w-full gap-4 relative z-10 px-4 py-6';
 ---
 <html lang="en">
 <Head />
 <body
-class="flex flex-col items-center md:justify-center min-h-dvh w-full bg-red-800"
+class="flex flex-col items-center md:justify-center min-h-dvh w-full bg-zinc-500"
 >
-<div class="fixed inset-0 z-[-2] bg-red-800 "></div>
+<div class="fixed inset-0 z-[-2] bg-zinc-500 "></div>
 <GrainOverlay />
 
 <main class={mainClasses}>
@@ -27,7 +27,7 @@ class="flex flex-col items-center md:justify-center min-h-dvh w-full bg-red-800"
 
   <slot />
 
-  {showButtonStart && <ButtonStart />}
+  {showButtonHome && <ButtonHome />}
 </main>
 
 </body>

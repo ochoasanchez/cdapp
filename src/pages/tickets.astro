@@ -2,11 +2,11 @@
 import { Image } from "astro:assets";
 import "../styles/global.css";
 import EventLayout from "../layouts/EventLayout.astro";
-import headerImage from "../../public/img/flyer3.jpg";
-import ButtonStart from "../components/ButtonStart.astro";
+import headerImage from "../../public/img/cd_4_sm.jpg";
+import ButtonHome from "../components/ButtonHome.astro";
 ---
 
-<EventLayout mainText="Entradas" subText="Good Days vs. Club Doméstico" showButtonStart={false}>
+<EventLayout mainText="Entradas" subText="Esto es Club Doméstico" showButtonHome={false}>
   <div class="flex flex-col gap-4 md:w-8/12 lg:w-6/12 xl:w-4/12 mx-auto">
   <div
     class="bg-black rounded-lg text-white shadow-black shadow-md/30"
@@ -26,80 +26,88 @@ import ButtonStart from "../components/ButtonStart.astro";
       <div  class="flex justify-between items-center px-4">
         <div class="flex flex-col">
           <h2 class="font-bold text-lg lg:text-2xl uppercase">
-            Escenario Bar
+            Cacao Cultura
           </h2>
-          <h3 class="text-lg lg:text-xl text-pink-300">C.C. Los Nísperos</h3>
+          <h3 class="text-lg lg:text-xl text-pink-400">Valencia, VE</h3>
         </div>
   
         <div class="flex flex-col text-right gap-0">
           <span
             class="font-bold rounded-full text-shadow-md text-xl lg:text-2xl tracking-widest"
           >
-            27
+            14
           </span>
   
           <span
-            class="text-emerald-300 rounded-full text-shadow-md text-lg lg:text-xl"
+            class="text-pink-400 rounded-full text-shadow-md text-lg lg:text-xl"
           >
-            SEP
+            FEB
           </span>
         </div>
 
       </div>
-      <div class="px-4">
+      <!-- <div class="px-4">
         <p class="mt-4">
           Para adquirir tus entradas de este <span class="font-bold"
-            >sábado 27 de septiembre</span
+            >sábado 14 de febrero</span
           >, solo debes enviarnos la siguiente información:
           <ul class="py-4 px-6 list-disc">
             <li>Nombre y apellido</li>
             <li>Número de cédula</li>
-            <li>Captura del pago (si es el caso)</li>
+            <li>Captura del pago</li>
           </ul>
         </p>
 
-      </div>
+      </div> -->
     </div>
-    
-    <table class="table-auto bg-zinc-900 w-full font-bold sm:text-xl">
+<!--     
+    <table class="table-auto bg-zinc-700 w-full font-bold sm:text-xl">
       <tbody>
         <tr>
-          <td class="text-center py-4 border border-black">Entrada General</td>
-          <td class="text-center py-4 border border-black">$7<span class="text-emerald-300  font-medium mx-2">/</span>Bs. 1.900</td>
+          <td class="text-left p-4 border border-black">Entrada General</td>
+          <td class="text-right p-4 border border-black">$10<span class="text-emerald-500  font-medium mx-2">/</span>Bs. 3.500</td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
     <div id="card-body" class="px-4">
-      <div class="mt-6 pt-6 text-pink-300 border-t-2 border-white">
-        <p class="font-bold mb-2 uppercase">Datos del pago móvil</p>
+      <!-- <div class="pt-6 text-pink-400 font-bold ">
+        <p class="mb-2 uppercase">Datos del pago móvil</p>
         <div class="flex gap-x-2 items-center">
           <span class="select-none tracking-wide">📞</span> 
-          <p>0424<span class="select-none">-</span>4029573</p>
+          <p>0424<span class="select-none">-</span>4112484</p>
         </div>
         <div class="flex gap-x-2 items-center">
           <span class="select-none">🏦</span>
-          <p>Banco de Venezuela</p>
+          <p>Banesco</p>
         </div>
         <div class="flex gap-x-2 items-center">
           <span class="select-none tracking-wide -mt-1">🪪</span>
-          <p>26<span class="select-none">.</span>337<span class="select-none">.</span>044</p>
-        </div>
-      </div>
-      <p class="mt-4">
+          <p>30<span class="select-none">.</span>020<span class="select-none">.</span>653</p>
+        </div> -->
+      <!-- </div> -->
+      <!-- <p class="mt-4">
         Una vez realices el pago, tómale una captura y escríbenos por WhatsApp
-        al <span class="font-bold">0414-4096757</span> o haz clic en el botón de
+        al <span class="font-bold">0422-2582366</span> o haz clic en el botón de
         abajo.
       </p>
       <a id="card-button"
-        href="https://api.whatsapp.com/send?phone=584144096757&text=Hola!%20Ac%C3%A1%20te%20env%C3%ADo%20mi%20comprobante%20de%20pago%20para%20la%20fiesta%20de%20Good%20Days%20vs.%20Club%20Dom%C3%A9stico%0A%0ANombre:%0AC%C3%A9dula:"
-        class="block mt-4 py-2 px-2 text-center uppercase font-bold text-lg border-2 lg:border-3 bg-emerald-500 border-emerald-500 text-black rounded-lg hover:bg-black hover:text-emerald-500 transition-all mx-auto"
+        href="https://api.whatsapp.com/send?phone=584222582366&text=Hola!%20Ac%C3%A1%20te%20env%C3%ADo%20mi%20comprobante%20de%20pago%20para%20la%20fiesta%20de%20Club%20Dom%C3%A9stico%0A%0ANombre:%0AC%C3%A9dula:"
+        class="block mt-4 py-2 px-2 text-center uppercase font-bold text-lg border-3 bg-emerald-500 border-emerald-500 text-black rounded-lg hover:bg-black hover:text-emerald-500 transition-all mx-auto"
       >
         Enviar comprobante <br /> por WhatsApp
-      </a>
+      </a> -->
+      <p class="mt-4">Nosotros, los querubines de San Valentín te venimos a salvar ese día de que no te quedes aburrido y deprimido en casa.</p><br/>
 
+      <p>Queremos que te sientas en la fiesta. Nuestra gente linda de <a href="https://www.instagram.com/cacaoculturav">@cacaoculturav</a> se animó a hacer el encuentro más romántico y divertido de la fecha, tendremos muchas cosas para hacer y para conectar entre nosotros.</p>
+      <br/>
+      <p>Cócteles, un open mic, lettering y música en vivo con <a href="https://www.instagram.com/fabiherreramusic">@fabiherreramusic</a> y <a href="https://www.instagram.com/valen.sah">@valen.sah</a> 💞
+      Estaremos musicalizando la noche, con @sanchezadrivn y @pmbrxz así que ya saben que la cosa se pone sabrosa 🤫</p>
+        <br/>
+      <p>Nos vemos el sábado 14 de febrero a partir de las 6 pm en <b>Cacao Cultura, entrada gratis</b> 💘💘💘</p>
+      <a class="text-center w-full block mt-4 py-2 px-2 text-center uppercase font-bold text-lg border-3 bg-emerald-500 border-emerald-500 text-black rounded-lg hover:bg-black hover:text-emerald-500 transition-all mx-auto" href="#">Ver en Instagram</a>
     </div>
     </div>
   </div>
   
-  <ButtonStart />
+  <ButtonHome />
 </EventLayout>
