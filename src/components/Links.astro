@@ -34,10 +34,18 @@ const links = [
 <div class="flex flex-col gap-4 w-full mx-auto">
   {
     links.map((link) => (
-      <div
-        class={`relative overflow-hidden border-3 lg:border-3 rounded-xl transition-all bg-black 
-          ${link.color === "primary" ? "border-emerald-300" : "border-pink-300"} 
-          ${link.type === "button" ? (link.color === "primary" ? "hover:bg-emerald-300" : "hover:bg-pink-300") : ""}`}
+      <a
+        href={link.url}
+        class={`group relative flex items-center justify-center w-full px-6 py-4
+          rounded-full border-3 font-bold text-lg uppercase text-white text-center
+          backdrop-blur-sm shadow-2xl/20
+          transition-all duration-300 hover:scale-105
+          ${
+            link.color === "primary"
+              ? "border-emerald-300 bg-emerald-500/25 hover:bg-emerald-500/50 hover:shadow-emerald-400/20 hover:shadow-lg"
+              : "border-pink-300 bg-pink-400/25 hover:bg-pink-400/50 hover:shadow-pink-400/20 hover:shadow-lg"
+          }
+        `}
         style={
           link.type === "image"
             ? `background-image: url('${link.image}'); background-size: cover; background-position: center;`
@@ -45,18 +53,10 @@ const links = [
         }
       >
         {link.type === "image" && (
-          <div class="absolute inset-0 bg-black/50 pointer-events-none" />
+          <div class="absolute inset-0 rounded-full bg-black/50 pointer-events-none" />
         )}
-
-        <a
-          href={link.url}
-          class={`relative z-10 flex items-center justify-center w-full px-6 text-center uppercase font-bold text-lg hover:text-black transition-all
-            ${link.color === "primary" ? "text-emerald-300" : "text-pink-300"}
-            ${link.type === "image" ? "py-4 " : "py-4"}`}
-        >
-          {link.text}
-        </a>
-      </div>
+        <span class="relative z-10">{link.text}</span>
+      </a>
     ))
   }
 </div>

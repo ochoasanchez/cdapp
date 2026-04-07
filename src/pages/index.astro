@@ -14,27 +14,14 @@ import "../styles/global.css";
 
 <html lang="en">
   <Head />
-  <body
-    class="flex flex-col items-center justify-center min-h-dvh bg-zinc-700 w-full p-4"
-  >
+  <body class="flex flex-col items-center justify-center min-h-dvh w-full">
     <div id="bg-chica" class="fixed inset-0 z-[-2] bg-chica"></div>
 
     <GrainOverlay />
 
-    <!-- Shown only on mobile, hidden after permission granted -->
-    <button
-      id="tilt-btn"
-      class="fixed bottom-6 right-6 z-50 hidden items-center gap-2 bg-white/10 backdrop-blur border border-white/20 text-white/70 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full transition-all active:scale-95 hover:bg-white/20"
-      aria-label="Enable 3D motion tilt"
-    >
-      ⟳ Enable Tilt
-    </button>
-
     <main class="flex flex-col w-full md:w-6/12 xl:w-4/12 gap-6 relative z-10">
       <Header />
-
       <Socials />
-
       <Links />
     </main>
   </body>
@@ -43,169 +30,86 @@ import "../styles/global.css";
   src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
   is:inline></script>
 <script is:inline>
-(function () {
   /** @type {any} */
   const gsapLib = window.gsap;
   const bgEl = document.getElementById("bg-chica");
-  const tiltBtn = document.getElementById("tilt-btn");
 
-  if (!bgEl || !gsapLib) return;
-
-  // ─── GSAP SETUP ────────────────────────────────────────────────
-  gsapLib.set(bgEl, {
-    transformOrigin: "50% 50%",
-    transformStyle: "preserve-3d",
-    scale: 1.1,
-  });
-
-  // quickTo gives us smooth, performance-conscious GSAP tween targets
-  const bgRX = gsapLib.quickTo(bgEl, "rotationX", { duration: 0.8, ease: "power3" });
-  const bgRY = gsapLib.quickTo(bgEl, "rotationY", { duration: 0.8, ease: "power3" });
-
-  let bgPosX = 100, bgPosY = 50;
-  const updateBgPos = (x, y) => { bgEl.style.backgroundPosition = x + "% " + y + "%"; };
-
-  const posX = { value: 100 };
-  const posY = { value: 50 };
-  const innerX = gsapLib.quickTo(posX, "value", {
-    duration: 0.8, ease: "power3",
-    onUpdate() { bgPosX = posX.value; updateBgPos(bgPosX, bgPosY); },
-  });
-  const innerY = gsapLib.quickTo(posY, "value", {
-    duration: 0.8, ease: "power3",
-    onUpdate() { bgPosY = posY.value; updateBgPos(bgPosX, bgPosY); },
-  });
-
-  const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-
-  // ─── DESKTOP: CURSOR-DRIVEN TILT ──────────────────────────────
-  if (isDesktop) {
-    document.addEventListener("pointermove", (e) => {
-      const nx = e.clientX / window.innerWidth;
-      const ny = e.clientY / window.innerHeight;
-      bgRX(gsapLib.utils.interpolate(10, -10, ny));
-      bgRY(gsapLib.utils.interpolate(-10, 10, nx));
-      innerX(gsapLib.utils.interpolate(88, 98, nx));
-      innerY(gsapLib.utils.interpolate(44, 56, ny));
+  if (bgEl && gsapLib) {
+    gsapLib.set(bgEl, {
+      transformOrigin: "50% 50%",
+      transformStyle: "preserve-3d",
+      scale: 1.1,
     });
-    document.addEventListener("pointerleave", () => {
-      bgRX(0); bgRY(0); innerX(95); innerY(50);
+
+    const bgRX = gsapLib.quickTo(bgEl, "rotationX", {
+      duration: 0.8,
+      ease: "power3",
     });
-    return; // nothing else to set up
-  }
+    const bgRY = gsapLib.quickTo(bgEl, "rotationY", {
+      duration: 0.8,
+      ease: "power3",
+    });
 
-  // ─── MOBILE: GYROSCOPE-DRIVEN TILT ────────────────────────────
-
-  // Raw sensor values — written by deviceorientation, read by RAF loop
-  let rawGamma = 0; // left/right tilt
-  let rawBeta  = 45;  // front/back tilt (45° = natural hold)
-
-  // Smoothed working values (lerp targets)
-  let smoothGamma = 0;
-  let smoothBeta  = 0;
-
-  // Lerp factor: lower = smoother but slower (0.06–0.12 feels nice)
-  const LERP = 0.08;
-  // Natural hold angle offset: user holds phone at ~45° forward
-  const BETA_OFFSET = 45;
-  // Map this many degrees of tilt → full GSAP range
-  const TILT_RANGE = 25;
-
-  let rafId = null;
-  let orientationCleanup = null;
-
-  // RAF loop: reads raw sensor data, lerps it, pushes to GSAP
-  function tick() {
-    rafId = requestAnimationFrame(tick);
-
-    // Lerp toward raw sensor values
-    smoothGamma += (rawGamma - smoothGamma) * LERP;
-    smoothBeta  += (rawBeta  - smoothBeta)  * LERP;
-
-    // Clamp to [-1, 1] after normalising by TILT_RANGE
-    const nx = Math.max(-1, Math.min(1, smoothGamma / TILT_RANGE));
-    const ny = Math.max(-1, Math.min(1, smoothBeta  / TILT_RANGE));
-
-    // Drive GSAP (quickTo handles its own internal smoothing too)
-    bgRX(gsapLib.utils.interpolate(-15, 15, (ny + 1) / 2));
-    bgRY(gsapLib.utils.interpolate(-15, 15, (nx + 1) / 2));
-    innerX(gsapLib.utils.interpolate(40, 60, (nx + 1) / 2));
-    innerY(gsapLib.utils.interpolate(40, 60, (ny + 1) / 2));
-  }
-
-  function startGyroscope() {
-    const handler = (e) => {
-      if (e.gamma === null || e.beta === null) return;
-      rawGamma = e.gamma;                   // left/right (-90 to 90)
-      rawBeta  = e.beta - BETA_OFFSET;      // zero at natural hold angle
+    let bgPosX = 50,
+      bgPosY = 50;
+    const updateBgPos = (x, y) => {
+      bgEl.style.backgroundPosition = x + "% " + y + "%";
     };
-    window.addEventListener("deviceorientation", handler);
-    orientationCleanup = () => window.removeEventListener("deviceorientation", handler);
-    tick(); // start RAF
-    if (tiltBtn) tiltBtn.style.display = "none";
-  }
 
-  // ─── FALLBACK: touch pointermove ──────────────────────────────
-  function startTouchFallback() {
-    document.addEventListener("pointermove", (e) => {
-      const nx = e.clientX / window.innerWidth;
-      const ny = e.clientY / window.innerHeight;
-      bgRX(gsapLib.utils.interpolate(10, -10, ny));
-      bgRY(gsapLib.utils.interpolate(-10, 10, nx));
-      innerX(gsapLib.utils.interpolate(40, 60, nx));
-      innerY(gsapLib.utils.interpolate(40, 60, ny));
+    const posX = { value: 50 };
+    const posY = { value: 50 };
+    const innerX = gsapLib.quickTo(posX, "value", {
+      duration: 0.8,
+      ease: "power3",
+      onUpdate() {
+        bgPosX = posX.value;
+        updateBgPos(bgPosX, bgPosY);
+      },
     });
-    if (tiltBtn) tiltBtn.style.display = "none";
-  }
+    const innerY = gsapLib.quickTo(posY, "value", {
+      duration: 0.8,
+      ease: "power3",
+      onUpdate() {
+        bgPosY = posY.value;
+        updateBgPos(bgPosX, bgPosY);
+      },
+    });
 
-  // ─── CLEANUP (e.g. SPA navigation) ────────────────────────────
-  function cleanup() {
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    if (orientationCleanup) { orientationCleanup(); orientationCleanup = null; }
-  }
-  document.addEventListener("astro:before-swap", cleanup);
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
-  // ─── iOS 13+ PERMISSION FLOW ──────────────────────────────────
-  async function requestGyroscopePermission() {
-    if (
-      typeof DeviceOrientationEvent !== "undefined" &&
-      typeof DeviceOrientationEvent.requestPermission === "function"
-    ) {
-      try {
-        const permission = await DeviceOrientationEvent.requestPermission();
-        if (permission === "granted") {
-          startGyroscope();
-        } else {
-          // Permission denied — fall back gracefully
-          startTouchFallback();
-        }
-      } catch (err) {
-        console.warn("[tilt] Permission request failed, using fallback.", err);
-        startTouchFallback();
-      }
-    } else if (window.DeviceOrientationEvent) {
-      // Android / older Safari — no permission needed
-      startGyroscope();
+    if (isDesktop) {
+      bgPosX = 95;
+      posX.value = 95;
+      updateBgPos(95, 50);
+      document.addEventListener("pointermove", (e) => {
+        const nx = e.clientX / window.innerWidth;
+        const ny = e.clientY / window.innerHeight;
+        bgRX(gsapLib.utils.interpolate(10, -10, ny));
+        bgRY(gsapLib.utils.interpolate(-10, 10, nx));
+        innerX(gsapLib.utils.interpolate(88, 98, nx));
+        innerY(gsapLib.utils.interpolate(44, 56, ny));
+      });
+      document.addEventListener("pointerleave", () => {
+        bgRX(0);
+        bgRY(0);
+        innerX(95);
+        innerY(50);
+      });
     } else {
-      // No gyroscope at all
-      startTouchFallback();
+      document.addEventListener("pointermove", (e) => {
+        const nx = e.clientX / window.innerWidth;
+        const ny = e.clientY / window.innerHeight;
+        bgRX(gsapLib.utils.interpolate(10, -10, ny));
+        bgRY(gsapLib.utils.interpolate(-10, 10, nx));
+        innerX(gsapLib.utils.interpolate(44, 56, nx));
+        innerY(gsapLib.utils.interpolate(44, 56, ny));
+      });
+      document.addEventListener("pointerleave", () => {
+        bgRX(0);
+        bgRY(0);
+        innerX(50);
+        innerY(50);
+      });
     }
   }
-
-  // ─── ENTRY POINT ──────────────────────────────────────────────
-  // If iOS: show the button (must call requestPermission from a click)
-  if (
-    typeof DeviceOrientationEvent !== "undefined" &&
-    typeof DeviceOrientationEvent.requestPermission === "function"
-  ) {
-    // iOS 13+: need a user gesture
-    if (tiltBtn) {
-      tiltBtn.style.display = "flex";
-      tiltBtn.addEventListener("click", requestGyroscopePermission, { once: true });
-    }
-  } else {
-    // Android or non-iOS: start immediately, no prompt needed
-    requestGyroscopePermission();
-  }
-})();
 </script>
