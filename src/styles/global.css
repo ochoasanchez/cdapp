@@ -39,7 +39,7 @@ td,
 }
 
 .bg-chica {
-  background-image: url("/img/chica_web.png");
+  background-image: url("/img/chica_web_resized.png");
   background-repeat: no-repeat;
   /* mobile: cover to ensure no grey bars at bottom */
   background-size: cover;
@@ -50,7 +50,7 @@ td,
   .bg-chica {
     /* constrain by height so top/bottom never crop; width scales automatically */
     background-size: auto 88%;
-    background-position: right center;
+    background-position: center;
   }
 }
 
@@ -212,7 +212,7 @@ main {
   left: -10rem;
   width: calc(100% + 20rem);
   height: calc(100% + 20rem);
-  background-image: url("../../public/img/noise_3.png");
+  background-image: url("/img/noise_3.png");
   pointer-events: none;
   animation: grain-noise 1s steps(1) infinite;
 }

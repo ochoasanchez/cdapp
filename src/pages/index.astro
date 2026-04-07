@@ -78,21 +78,21 @@ import "../styles/global.css";
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
     if (isDesktop) {
-      bgPosX = 95;
-      posX.value = 95;
-      updateBgPos(95, 50);
+      bgPosX = 50;
+      posX.value = 50;
+      updateBgPos(50, 50);
       document.addEventListener("pointermove", (e) => {
         const nx = e.clientX / window.innerWidth;
         const ny = e.clientY / window.innerHeight;
         bgRX(gsapLib.utils.interpolate(10, -10, ny));
         bgRY(gsapLib.utils.interpolate(-10, 10, nx));
-        innerX(gsapLib.utils.interpolate(88, 98, nx));
+        innerX(gsapLib.utils.interpolate(45, 55, nx));
         innerY(gsapLib.utils.interpolate(44, 56, ny));
       });
       document.addEventListener("pointerleave", () => {
         bgRX(0);
         bgRY(0);
-        innerX(95);
+        innerX(50);
         innerY(50);
       });
     } else {
